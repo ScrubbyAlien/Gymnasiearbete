@@ -3,36 +3,48 @@ import math
 totalMembers = int(input("Hur många elever? "))
 intitiallyInfected = int(input("Hur många är sjuka? "))
 infectionRate = float(input("Smittspridningsfaktor? "))
+daysTillSymptomFree = int(input("Hur många dagar tills man blir symptomfri? "))
 healthy = totalMembers - intitiallyInfected
 infected = intitiallyInfected
 removed = 0
 
 
-print("Total Members: " + str(totalMembers) + "\nHealthy: " + str(healthy) +
-      "\nInfected: " + str(infected) + "\nRemoved: " + str(removed) + "\n")
+print("\nTotal Members: " + str(totalMembers) + "\nHealthy: " + str(healthy) +
+      "\nInfected: " + str(infected) + "\nInfectionRate: " + str(infectionRate) +
+      "\nDays until free of symptoms: " + str(daysTillSymptomFree))
+input()
 
 infectedPerDay = [intitiallyInfected]
-infectedDayBefore = intitiallyInfected
+infectedYesterday = intitiallyInfected
 day = 0
 
-while(removed < totalMembers):
+
+while(0.5 <= infected and removed < totalMembers - 0.5):
     day += 1
 
-    if(infected * infectionRate < totalMembers):
-        infected = infected * infectionRate
+    if(healthy > 0):
+        infectedToday = infected * infectionRate - infected
+    elif(healthy - (infected * infectionRate - infected) < 0):
+        infectedToday = healthy
+    infectedPerDay.insert(day, infectedToday)
+
+    if(day - daysTillSymptomFree >= 0):
+        if(removed + infectedPerDay[day - daysTillSymptomFree] < totalMembers):
+            removed += infectedPerDay[day - daysTillSymptomFree]
+            infected -= infectedPerDay[day - daysTillSymptomFree]
+        else:
+            removed = totalMembers
+            infected = 0
+
+    if(healthy - infectedToday > 0):
+        infected += infectedToday
+        healthy -= infectedToday
     else:
-        infected = totalMembers
+        infected += healthy
+        healthy = 0
 
-    infectedPerDay.append(round(infected) - round(infectedDayBefore))
-    infectedDayBefore = infected
-
-    healthy = totalMembers - infected
-    if(day - 7 >= 0):
-        removed += infectedPerDay[day - 7]
-
-    stillInfected = round(infected) - round(removed)
-
-    print("Day: " + str(day) + "\nHealthy: " + str(round(healthy)) + "\nInfected: " +
-          str(round(infected)) + "\nStill Infected: " + str(stillInfected) + "\nRemoved: " + str(round(removed)) +
-          "\nInfected Today: " + str(round(infectedPerDay[day])))
+    print("Day: " + str(round(day)) + "\nHealthy: " + str(round(healthy)) + "\nInfected: "
+          + str(round(infected)) + "\nRemoved: " +
+          str(round(removed)) + "\nInfected Today: "
+          + str(round(infectedPerDay[day])))
     input()
