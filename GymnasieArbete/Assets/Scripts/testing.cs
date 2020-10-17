@@ -13,40 +13,44 @@ public class Testing : MonoBehaviour
 
     private void Start()
     {
+        //creates entity manager
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
+        //creates archetype and a list to hold entities
         EntityArchetype entityArchetype = entityManager.CreateArchetype(
-            typeof(LevelComponent),
             typeof(Translation),
             typeof(RenderMesh),
             typeof(LocalToWorld),
             typeof(RenderBounds),
-            typeof(MoveSpeedComponent)
+            typeof(MoveSpeedComponent),
+            typeof(Scale)
             );
 
-        NativeArray<Entity> entityArray = new NativeArray<Entity>(20000, Allocator.Temp);
+        NativeArray<Entity> entityArray = new NativeArray<Entity>(200, Allocator.Temp);
         entityManager.CreateEntity(entityArchetype, entityArray);
 
+        //creates all the entities and adds them to the list, and also sets component values
         for (int i = 0; i < entityArray.Length; i++)
         {
             Entity entity = entityArray[i];
 
             entityManager.SetComponentData(entity,
-                new LevelComponent
-                {
-                    level = Random.Range(0, 10)
-                });
-
-            entityManager.SetComponentData(entity,
                 new MoveSpeedComponent
                 {
-                    speed = Random.Range(1f, 2f)
+                    speed = 1.5f,
+                    direction = new Vector2(1, 1),
                 });
 
             entityManager.SetComponentData(entity,
                 new Translation
                 {
-                    Value = new Unity.Mathematics.float3(Random.Range(-7.5f, 7.5f), 0, 0)
+                    Value = new Unity.Mathematics.float3(Random.Range(-7.5f, 7.5f), Random.Range(-7.5f, 7.5f), 0)
+                });
+
+            entityManager.SetComponentData(entity,
+                new Scale
+                {
+                    Value = 0.25f
                 });
 
             entityManager.SetSharedComponentData(entity, new RenderMesh

@@ -6,4 +6,5 @@ using Unity.Entities;
 public struct MoveSpeedComponent : IComponentData
 {
     public float speed;
+    public Vector2 direction;
 }
