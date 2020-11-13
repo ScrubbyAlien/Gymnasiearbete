@@ -17,49 +17,109 @@ public class Testing : MonoBehaviour
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
         //creates archetype and a list to hold entities
-        EntityArchetype entityArchetype = entityManager.CreateArchetype(
+        EntityArchetype StudentArchetype = entityManager.CreateArchetype(
             typeof(Translation),
             typeof(RenderMesh),
             typeof(LocalToWorld),
             typeof(RenderBounds),
             typeof(MoveSpeedComponent),
-            typeof(Scale)
+            typeof(Scale),
+            typeof(StudentComponent)
             );
 
-        NativeArray<Entity> entityArray = new NativeArray<Entity>(200, Allocator.Temp);
-        entityManager.CreateEntity(entityArchetype, entityArray);
+        NativeArray<Entity> susceptibleEntityArray = new NativeArray<Entity>(200, Allocator.Temp);
+        entityManager.CreateEntity(StudentArchetype, susceptibleEntityArray);
+
+        NativeArray<Entity> infectedEntityArray = new NativeArray<Entity>(1, Allocator.Temp);
+        entityManager.CreateEntity(StudentArchetype, infectedEntityArray);
 
         //creates all the entities and adds them to the list, and also sets component values
-        for (int i = 0; i < entityArray.Length; i++)
+
+        //creates the infected entities
+        for (int i = 0; i < infectedEntityArray.Length; i++)
         {
-            Entity entity = entityArray[i];
+            Entity entity = infectedEntityArray[i];
 
-            entityManager.SetComponentData(entity,
-                new MoveSpeedComponent
-                {
-                    speed = 1.5f,
-                    direction = new Vector2(1, 1),
-                });
-
-            entityManager.SetComponentData(entity,
-                new Translation
-                {
-                    Value = new Unity.Mathematics.float3(Random.Range(-7.5f, 7.5f), Random.Range(-7.5f, 7.5f), 0)
-                });
-
-            entityManager.SetComponentData(entity,
-                new Scale
-                {
-                    Value = 0.25f
-                });
-
-            entityManager.SetSharedComponentData(entity, new RenderMesh
+            //sets all componetn data
             {
-                mesh = mesh,
-                material = material,
-            });
+                entityManager.SetComponentData(entity,
+                    new MoveSpeedComponent
+                    {
+                        speed = 1.5f,
+                        direction = new Vector2(1, 1),
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new Translation
+                    {
+                        Value = new Unity.Mathematics.float3(Random.Range(-7.5f, 7.5f), Random.Range(-7.5f, 7.5f), 0)
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new Scale
+                    {
+                        Value = 0.25f
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new StudentComponent
+                    {
+                        infectionState = StudentComponent.InfectionState.Infected
+                    });
+
+                entityManager.SetSharedComponentData(entity,
+                    new RenderMesh
+                    {
+                        mesh = mesh,
+                        material = material,
+                    });
+            }
+
+
         }
 
-        entityArray.Dispose();
+        //created the susceptible entities
+        for (int i = 0; i < susceptibleEntityArray.Length; i++)
+        {
+            Entity entity = susceptibleEntityArray[i];
+
+            //sets all componetn data
+            {
+                entityManager.SetComponentData(entity,
+                    new MoveSpeedComponent
+                    {
+                        speed = 1.5f,
+                        direction = new Vector2(1, 1),
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new Translation
+                    {
+                        Value = new Unity.Mathematics.float3(Random.Range(-7.5f, 7.5f), Random.Range(-7.5f, 7.5f), 0)
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new Scale
+                    {
+                        Value = 0.25f
+                    });
+
+                entityManager.SetComponentData(entity,
+                    new StudentComponent
+                    {
+                        infectionState = StudentComponent.InfectionState.Susceptible
+                    });
+
+                entityManager.SetSharedComponentData(entity,
+                    new RenderMesh
+                    {
+                        mesh = mesh,
+                        material = material,
+                    });
+            }
+        }
+
+        susceptibleEntityArray.Dispose();
+        infectedEntityArray.Dispose();
     }
 }
