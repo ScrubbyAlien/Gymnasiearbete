@@ -9,7 +9,8 @@ using Unity.Rendering;
 public class Testing : MonoBehaviour
 {
     [SerializeField] private Mesh mesh = null;
-    [SerializeField] private Material material = null;
+    [SerializeField] private Material whiteMaterial = null;
+    [SerializeField] private Material redMaterial = null;
 
     private void Start()
     {
@@ -71,7 +72,7 @@ public class Testing : MonoBehaviour
                     new RenderMesh
                     {
                         mesh = mesh,
-                        material = material,
+                        material = redMaterial,
                     });
             }
 
@@ -114,7 +115,7 @@ public class Testing : MonoBehaviour
                     new RenderMesh
                     {
                         mesh = mesh,
-                        material = material,
+                        material = whiteMaterial,
                     });
             }
         }
