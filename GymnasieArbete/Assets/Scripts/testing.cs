@@ -8,9 +8,16 @@ using Unity.Rendering;
 
 public class Testing : MonoBehaviour
 {
-    [SerializeField] private Mesh mesh = null;
-    [SerializeField] private Material whiteMaterial = null;
-    [SerializeField] private Material redMaterial = null;
+    private static Testing instance;
+
+    public static Testing GetInstance()
+    {
+        return instance;
+    }
+
+    [SerializeField] public Mesh mesh = null;
+    [SerializeField] public Material whiteMaterial = null;
+    [SerializeField] public Material redMaterial = null;
 
     private void Start()
     {
@@ -25,7 +32,8 @@ public class Testing : MonoBehaviour
             typeof(RenderBounds),
             typeof(MoveSpeedComponent),
             typeof(Scale),
-            typeof(StudentComponent)
+            typeof(StudentComponent),
+            typeof(Entity)
             );
 
         NativeArray<Entity> susceptibleEntityArray = new NativeArray<Entity>(200, Allocator.Temp);
