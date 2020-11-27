@@ -8,6 +8,7 @@ public class StudentMovement : MonoBehaviour
     Camera mCamera;
     Vector3 cameraPostion;
 
+    public LayerMask borderMask;
     float borderWidth;
     float borderHeight;
     Vector2 cameraOffset;
@@ -55,15 +56,15 @@ public class StudentMovement : MonoBehaviour
             mRidigbody.velocity = dir * speed;
         }
 
+        if (gameObject.GetComponent<CircleCollider2D>().IsTouchingLayers(borderMask))
+        {
+            dir = GetRandDir();
+            speed = GetRandSpeed();
+            mRidigbody.velocity = dir * speed;
+        }
+
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Border")
-        {
-            mRidigbody.velocity *= -1;
-        }
-    }
 
     Vector2 GetRandDir()
     {

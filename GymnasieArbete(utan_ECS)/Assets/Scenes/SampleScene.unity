@@ -133,9 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 482969925}
   - component: {fileID: 482969926}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CameraBorder
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 482969924}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 434a089e49fbc0d43aee239d177833aa, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
