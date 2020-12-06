@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ComponentUtils;
+
 
 public class Infector : MonoBehaviour
 {
@@ -14,24 +16,26 @@ public class Infector : MonoBehaviour
         }
     }
 
+    //Infects numberToInfect number of students the first time the i key is pressed
     void Infect(int n)
     {
         GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 
-        for (int i = 0; i < numberToInfect; i++)
+        if (numberToInfect < students.Length)
         {
-            if (students[i].HasComponent<Infected>() == false)
+            for (int i = 0; i < numberToInfect; i++)
             {
-                students[i].AddComponent<Infected>();
+                if (students[i].HasComponent<Infected>() == false)
+                {
+                    students[i].AddComponent<Infected>();
+                }
             }
         }
+        else
+        {
+            Debug.Log("Can't infect that many students dummy");
+        }
+
     }
 }
 
-public static class hasComponent
-{
-    public static bool HasComponent<T>(this GameObject flag) where T : Component
-    {
-        return flag.GetComponent<T>() != null;
-    }
-}

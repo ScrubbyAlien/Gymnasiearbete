@@ -41,6 +41,8 @@ public class StudentMovement : MonoBehaviour
 
     void Update()
     {
+
+        //Gets a new speed and direction after a certain time period has passed.
         if (Time.time >= timeSinceLastDirChange + timeUntilNextDirChange)
         {
             dir = GetRandDir();
@@ -50,31 +52,45 @@ public class StudentMovement : MonoBehaviour
         }
         if (Time.time >= timeSinceLastSpeedChange + timeUntilNextSpeedChange)
         {
-            speed = GetRandSpeed();
+            speed = GetRandSpeed(1f, 2f);
             timeSinceLastSpeedChange = Time.time;
             timeUntilNextSpeedChange = Random.Range(0.5f, 3f);
             mRidigbody.velocity = dir * speed;
         }
 
+
+        //Gets a new direction and speed if the ball collides with the wall and
+        //casts a ray in new direction to check if it still points towards the wall.
+        //Will get a new randDir and try again if it still points to the wall.
         if (gameObject.GetComponent<CircleCollider2D>().IsTouchingLayers(borderMask))
         {
             dir = GetRandDir();
-            speed = GetRandSpeed();
+            speed = GetRandSpeed(1f, 2f);
             mRidigbody.velocity = dir * speed;
+            bool pointingAtWall = true;
+            while (pointingAtWall)
+            {
+                if (Physics2D.Raycast(transform.position, dir, 1f, borderMask))
+                {
+                    dir = GetRandDir();
+                }
+                else
+                {
+                    pointingAtWall = false;
+                }
+            }
         }
 
     }
 
-
     Vector2 GetRandDir()
     {
         float randAngle = Random.Range(0f, 2 * Mathf.PI);
-        Vector2 d = new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle));
-        return d;
+        return new Vector2(Mathf.Cos(randAngle), Mathf.Sin(randAngle));
     }
 
-    float GetRandSpeed()
+    float GetRandSpeed(float min, float max)
     {
-        return Random.Range(1f, 4f);
+        return Random.Range(min, max);
     }
 }
