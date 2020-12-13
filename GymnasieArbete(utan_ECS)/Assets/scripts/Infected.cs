@@ -19,7 +19,7 @@ public class Infected : MonoBehaviour
     void Start()
     {
         p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
-        border = GameObject.FindGameObjectWithTag("border").gameObject.GetComponent<Transform>();
+        border = GameObject.FindGameObjectWithTag("Border").gameObject.GetComponent<Transform>();
         gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
         radius = (p.infectionRadius * border.localScale.x * 2) / p.lengthOfSide;
         checktime = p.dayLength;
@@ -31,7 +31,6 @@ public class Infected : MonoBehaviour
 
     void Update()
     {
-
         if (Time.time >= timeOfInfection + incubationTime && !gameObject.HasComponent<Removed>())
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;

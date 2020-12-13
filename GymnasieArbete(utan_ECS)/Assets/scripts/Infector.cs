@@ -20,12 +20,12 @@ public class Infector : MonoBehaviour
         numberToInfect = p.initiallyInfected;
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Infect(numberToInfect);
+            Infect();
         }
     }
 
     //Infects numberToInfect number of students the first time the i key is pressed
-    void Infect(int n)
+    public void Infect()
     {
         GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 

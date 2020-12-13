@@ -5,13 +5,8 @@ using UnityEngine;
 public class StudentMovement : MonoBehaviour
 {
     Rigidbody2D mRidigbody;
-    Camera mCamera;
-    Vector3 cameraPostion;
 
     public LayerMask borderMask;
-    float borderWidth;
-    float borderHeight;
-    Vector2 cameraOffset;
 
     Vector2 dir;
     float speed;
@@ -19,7 +14,6 @@ public class StudentMovement : MonoBehaviour
     float timeUntilNextSpeedChange;
     float timeSinceLastDirChange;
     float timeSinceLastSpeedChange;
-    Vector2 translation;
 
     InfectionParameters p;
     float borderLength;
@@ -30,12 +24,6 @@ public class StudentMovement : MonoBehaviour
         borderLength = GameObject.FindGameObjectWithTag("Border").
                        gameObject.GetComponent<Transform>().localScale.x * 2;
         mRidigbody = GetComponent<Rigidbody2D>();
-        mCamera = Camera.main;
-        cameraPostion = mCamera.transform.position;
-
-        borderWidth = mCamera.orthographicSize * mCamera.aspect * 2;
-        borderHeight = mCamera.orthographicSize * 2;
-        cameraOffset = new Vector2(cameraPostion.x, cameraPostion.y);
 
         timeUntilNextDirChange = 0;
         timeUntilNextSpeedChange = 0;
