@@ -6,10 +6,18 @@ using ComponentUtils;
 
 public class Infector : MonoBehaviour
 {
-    public int numberToInfect;
+    int numberToInfect;
+
+    InfectionParameters p;
+
+    void Start()
+    {
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
+    }
 
     void Update()
     {
+        numberToInfect = p.initiallyInfected;
         if (Input.GetKeyDown(KeyCode.I))
         {
             Infect(numberToInfect);

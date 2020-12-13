@@ -9,12 +9,18 @@ public class UIHandler : MonoBehaviour
     public Text numberSusceptible;
     public Text numberInfected;
     public Text numberRemoved;
+    public Text density;
+
+    InfectionParameters p;
 
     void Update()
     {
-        numberSusceptible.text = GetStatCount("Sus").ToString();
-        numberInfected.text = GetStatCount("Inf").ToString();
-        numberRemoved.text = GetStatCount("Rem").ToString();
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
+        numberSusceptible.text = "Susceptible: " + GetStatCount("Sus").ToString();
+        numberInfected.text = "Infected: " + GetStatCount("Inf").ToString();
+        numberRemoved.text = "Removed: " + GetStatCount("Rem").ToString();
+        density.text = "Density: " + (GetStatCount("All") / Mathf.Pow(p.lengthOfSide, 2)).ToString("#.##") +
+        " people/sqrm";
     }
 
     int GetStatCount(string studentType)

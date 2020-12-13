@@ -21,8 +21,14 @@ public class StudentMovement : MonoBehaviour
     float timeSinceLastSpeedChange;
     Vector2 translation;
 
+    InfectionParameters p;
+    float borderLength;
+
     void Start()
     {
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
+        borderLength = GameObject.FindGameObjectWithTag("Border").
+                       gameObject.GetComponent<Transform>().localScale.x * 2;
         mRidigbody = GetComponent<Rigidbody2D>();
         mCamera = Camera.main;
         cameraPostion = mCamera.transform.position;
@@ -52,7 +58,7 @@ public class StudentMovement : MonoBehaviour
         }
         if (Time.time >= timeSinceLastSpeedChange + timeUntilNextSpeedChange)
         {
-            speed = GetRandSpeed(1f, 2f);
+            speed = GetRandSpeed(p.minSpeed, p.maxSpeed) * borderLength / p.lengthOfSide;
             timeSinceLastSpeedChange = Time.time;
             timeUntilNextSpeedChange = Random.Range(0.5f, 3f);
             mRidigbody.velocity = dir * speed;
@@ -65,7 +71,7 @@ public class StudentMovement : MonoBehaviour
         if (gameObject.GetComponent<CircleCollider2D>().IsTouchingLayers(borderMask))
         {
             dir = GetRandDir();
-            speed = GetRandSpeed(1f, 2f);
+            speed = GetRandSpeed(p.minSpeed, p.maxSpeed) * borderLength / p.lengthOfSide;
             mRidigbody.velocity = dir * speed;
             bool pointingAtWall = true;
             while (pointingAtWall)

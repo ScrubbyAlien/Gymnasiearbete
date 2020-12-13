@@ -8,12 +8,17 @@ public class Spawner : MonoBehaviour
     public GameObject studentPrefab;
     GameObject newStudent;
 
-    public int[] waveSizes;
-    int wave;
+    int pop;
 
+    public Transform border;
+    Transform studentT;
+
+    InfectionParameters p;
     void Start()
     {
-        wave = 0;
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
+        studentT = studentPrefab.transform;
+        pop = p.population;
     }
 
     void Update()
@@ -26,15 +31,28 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnNextWave()
     {
-        if (wave < waveSizes.Length)
+        for (int i = 0; i < pop; i++)
         {
-            for (int i = 0; i < waveSizes[wave]; i++)
-            {
-                newStudent = Instantiate<GameObject>(studentPrefab);
-                newStudent.transform.position = new Vector2(Random.Range(-8f, 8), Random.Range(-4f, 4f));
-                yield return null;
-            }
-            wave += 1;
+            newStudent = Instantiate<GameObject>(studentPrefab);
+            newStudent.transform.position = new Vector2
+                (
+                    Random.Range(
+                    border.position.x - (border.localScale.x - studentT.localScale.x / 2),
+                    border.position.x + (border.localScale.x - studentT.localScale.x / 2)),
+                    Random.Range(
+                    border.position.y - (border.localScale.y - studentT.localScale.y / 2),
+                    border.position.y + (border.localScale.y - studentT.localScale.y / 2))
+                );
+            float f = ScalingFactor(0.12f);
+            float s = border.localScale.x * 2 * f / p.lengthOfSide;
+            newStudent.transform.localScale = new Vector3(s, s, 1);
+            newStudent.transform.parent = transform;
+            yield return null;
         }
+    }
+
+    float ScalingFactor(float area)
+    {
+        return Mathf.Sqrt(area * 4 / Mathf.PI);
     }
 }
