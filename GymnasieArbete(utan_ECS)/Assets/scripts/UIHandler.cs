@@ -10,6 +10,9 @@ public class UIHandler : MonoBehaviour
     public Text numberInfected;
     public Text numberRemoved;
     public Text density;
+    public Text day;
+
+    public Transform dayBar;
 
     InfectionParameters p;
 
@@ -21,6 +24,10 @@ public class UIHandler : MonoBehaviour
         numberRemoved.text = "Removed: " + GetStatCount("Rem").ToString();
         density.text = "Density: " + (GetStatCount("All") / Mathf.Pow(p.lengthOfSide, 2)).ToString("#.##") +
         " people/sqrm";
+        day.text = "Day: " + Mathf.FloorToInt(Time.time / p.dayLength);
+
+        float pBarScaleF = 3.25f * (Time.time % p.dayLength) / p.dayLength;
+        dayBar.localScale = new Vector3(pBarScaleF, dayBar.localScale.y, 1);
     }
 
     int GetStatCount(string studentType)
