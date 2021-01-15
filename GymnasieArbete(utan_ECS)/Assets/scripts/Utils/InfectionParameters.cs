@@ -21,24 +21,80 @@ public class InfectionParameters : MonoBehaviour
     public int initiallyInfected;
     public float dayLength;
 
+    [Range(0f, 1f)]
+    public float attendence;
+
     public Slider infRate;
     public Text infRadius;
     public Toggle showInfRad;
-
+    public Text daysTillRem;
+    public Text incTime;
+    public Text pop;
+    public Text initInf;
+    public Text dayLen;
+    public Slider atten;
+    public Text maxSp;
+    public Text minSp;
+    public Text len;
 
     public void Update()
     {
+        //infection section
         infectionRate = infRate.value;
-        float n;
-        if (float.TryParse(infRadius.text, out n))
+        infectionRadius = readValueFloat(infRadius, 1);
+        showInfectionRadius = showInfRad.isOn;
+        timeTillRemoved = readValueFloat(daysTillRem, 1) * dayLength;
+        incubationTime = readValueFloat(incTime, 0) * dayLength;
+
+        //simulation section
+        population = readValueInt(pop, 1);
+        initiallyInfected = readValueInt(initInf, 1);
+        dayLength = readValueFloat(dayLen, 3);
+
+        //student section
+        attendence = atten.value;
+        float typedMaxSpeed = readValueFloat(maxSp, 1);
+        float typedMinSpeed = readValueFloat(minSp, 1);
+        if (typedMaxSpeed >= typedMinSpeed)
         {
-            infectionRadius = n;
+            maxSpeed = typedMaxSpeed;
+            minSpeed = typedMinSpeed;
         }
         else
         {
-            infectionRadius = 1;
+            maxSpeed = 1;
+            minSpeed = 1;
         }
-        showInfectionRadius = showInfRad.isOn;
+
+        //mise section
+        lengthOfSide = readValueFloat(len, 7.2f);
+
+    }
+
+    float readValueFloat(Text inputText, float def)
+    {
+        float n;
+        if (float.TryParse(inputText.text, out n))
+        {
+            return n;
+        }
+        else
+        {
+            return def;
+        }
+    }
+
+    int readValueInt(Text inputText, int def)
+    {
+        int n;
+        if (int.TryParse(inputText.text, out n))
+        {
+            return n;
+        }
+        else
+        {
+            return def;
+        }
     }
 
 }

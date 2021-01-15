@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnStudents()
     {
-        while (GameObject.FindGameObjectsWithTag("Student").Length < pop)
+        while (GameObject.FindGameObjectsWithTag("Student").Length < pop * p.attendence)
         {
             newStudent = Instantiate<GameObject>(studentPrefab);
             float f = ScalingFactor(0.12f);

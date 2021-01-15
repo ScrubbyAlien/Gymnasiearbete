@@ -10,12 +10,15 @@ public class UIHandler : MonoBehaviour
     public Text numberInfected;
     public Text numberRemoved;
     public Text density;
+
     public Text day;
     public Text infRateValue;
+    public Text attendence;
 
     public Transform dayBar;
 
     public GameObject settingsMenu;
+    public GameObject mainScreenUI;
 
     InfectionParameters p;
 
@@ -36,6 +39,7 @@ public class UIHandler : MonoBehaviour
 
         //text and values in settings menu
         infRateValue.text = p.infectionRate.ToString("0.00");
+        attendence.text = p.attendence.ToString("0.00");
     }
 
     int GetStatCount(string studentType)
@@ -72,6 +76,10 @@ public class UIHandler : MonoBehaviour
     {
         settingsOpen = !settingsOpen;
         settingsMenu.SetActive(settingsOpen);
+        foreach (Button c in mainScreenUI.GetComponentsInChildren<Button>())
+        {
+            c.enabled = !settingsOpen;
+        }
     }
 
 }
