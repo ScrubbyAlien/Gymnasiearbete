@@ -15,6 +15,8 @@ public class UIHandler : MonoBehaviour
     public Text infRateValue;
     public Text attendence;
 
+    public Text curTSV;
+
     public Transform dayBar;
 
     public GameObject settingsMenu;
@@ -36,6 +38,8 @@ public class UIHandler : MonoBehaviour
 
         float pBarScaleF = 3.25f * (Time.time % p.dayLength) / p.dayLength;
         dayBar.localScale = new Vector3(pBarScaleF, dayBar.localScale.y, 1);
+
+        curTSV.text = Time.timeScale.ToString("0.00") + "x";
 
         //text and values in settings menu
         infRateValue.text = p.infectionRate.ToString("0.00");
