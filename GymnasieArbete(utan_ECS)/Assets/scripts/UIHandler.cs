@@ -11,13 +11,12 @@ public class UIHandler : MonoBehaviour
     public Text numberRemoved;
     public Text density;
 
-    public Text day;
+
     public Text infRateValue;
     public Text attendence;
 
     public Text curTSV;
-
-    public Transform dayBar;
+    public Slider timeSlider;
 
     public GameObject settingsMenu;
     public GameObject mainScreenUI;
@@ -34,12 +33,9 @@ public class UIHandler : MonoBehaviour
         numberRemoved.text = "Removed: " + GetStatCount("Rem").ToString();
         density.text = "Density: " + (GetStatCount("All") / Mathf.Pow(p.lengthOfSide, 2)).ToString("0.00") +
         " people/sqrm";
-        day.text = "Day: " + Mathf.FloorToInt(Time.time / p.dayLength);
 
-        float pBarScaleF = 3.25f * (Time.time % p.dayLength) / p.dayLength;
-        dayBar.localScale = new Vector3(pBarScaleF, dayBar.localScale.y, 1);
 
-        curTSV.text = Time.timeScale.ToString("0.00") + "x";
+        curTSV.text = timeSlider.value.ToString("0.00") + "x";
 
         //text and values in settings menu
         infRateValue.text = p.infectionRate.ToString("0.00");

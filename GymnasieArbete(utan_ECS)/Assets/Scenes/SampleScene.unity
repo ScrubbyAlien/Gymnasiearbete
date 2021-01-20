@@ -1395,11 +1395,10 @@ MonoBehaviour:
   numberInfected: {fileID: 2105258192}
   numberRemoved: {fileID: 320627368}
   density: {fileID: 1011873421}
-  day: {fileID: 1885859424}
   infRateValue: {fileID: 2035742604}
   attendence: {fileID: 1394755404}
   curTSV: {fileID: 112947568}
-  dayBar: {fileID: 378568996}
+  timeSlider: {fileID: 449723015}
   settingsMenu: {fileID: 1783751155}
   mainScreenUI: {fileID: 1016363444}
 --- !u!1 &411221097
@@ -2752,6 +2751,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2115973258}
         m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
         m_MethodName: SpawnStudents
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1255834292}
+        m_TargetAssemblyTypeName: DayCounterManager, Assembly-CSharp
+        m_MethodName: StartCounter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5253,6 +5264,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225868431}
   m_CullTransparentMesh: 0
+--- !u!1 &1255834291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255834293}
+  - component: {fileID: 1255834292}
+  m_Layer: 0
+  m_Name: DayCounterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1255834292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255834291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dc7d941044a954d801fe07194efbbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  day: {fileID: 1885859424}
+  dayBar: {fileID: 378568996}
+--- !u!4 &1255834293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255834291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 808.6152, y: 398.91193, z: -7362.006}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1274507835
 GameObject:
   m_ObjectHideFlags: 0
@@ -5338,6 +5394,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2115973258}
         m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
         m_MethodName: DestroyStudents
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1255834292}
+        m_TargetAssemblyTypeName: DayCounterManager, Assembly-CSharp
+        m_MethodName: StopCounter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

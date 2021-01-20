@@ -66,7 +66,7 @@ public class InfectionParameters : MonoBehaviour
             minSpeed = 1;
         }
 
-        //mise section
+        //misc section
         lengthOfSide = readValueFloat(len, 7.2f);
 
     }
