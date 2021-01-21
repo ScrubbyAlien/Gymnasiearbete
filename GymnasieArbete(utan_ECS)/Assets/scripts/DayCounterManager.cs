@@ -18,6 +18,7 @@ public class DayCounterManager : MonoBehaviour
         counterOn = false;
         p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
         day.text = "Day: 0";
+        dayBar.localScale = new Vector3(0, dayBar.localScale.y, 1);
     }
 
     void Update()

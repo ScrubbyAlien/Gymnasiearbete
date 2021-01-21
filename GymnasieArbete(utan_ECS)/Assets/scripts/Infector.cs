@@ -29,7 +29,7 @@ public class Infector : MonoBehaviour
     {
         GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
 
-        if (numberToInfect < students.Length)
+        if (numberToInfect <= students.Length)
         {
             for (int i = 0; i < numberToInfect; i++)
             {

@@ -37,11 +37,13 @@ public class InfectionParameters : MonoBehaviour
     public Text minSp;
     public Text len;
 
+    public Transform border;
+
     public void Update()
     {
         //infection section
         infectionRate = infRate.value;
-        infectionRadius = readValueFloat(infRadius, 1);
+        infectionRadius = readValueFloat(infRadius, 0.5f);
         showInfectionRadius = showInfRad.isOn;
         timeTillRemoved = readValueFloat(daysTillRem, 1) * dayLength;
         incubationTime = readValueFloat(incTime, 0) * dayLength;
@@ -67,7 +69,7 @@ public class InfectionParameters : MonoBehaviour
         }
 
         //misc section
-        lengthOfSide = readValueFloat(len, 7.2f);
+        lengthOfSide = readValueFloat(len, border.localScale.x * 2);
 
     }
 
