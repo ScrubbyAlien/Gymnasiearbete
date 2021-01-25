@@ -6,14 +6,15 @@ public class Spawner : MonoBehaviour
 {
 
     public GameObject studentPrefab;
+    Transform studentT;
     GameObject newStudent;
 
     int pop;
 
     public Transform border;
-    Transform studentT;
 
     InfectionParameters p;
+
     void Start()
     {
         p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
@@ -22,7 +23,6 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        pop = p.population;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SpawnStudents();
@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnStudents()
     {
-        while (GameObject.FindGameObjectsWithTag("Student").Length < pop * p.attendence)
+        while (GameObject.FindGameObjectsWithTag("Student").Length < p.population)
         {
             newStudent = Instantiate<GameObject>(studentPrefab);
             float f = ScalingFactor(0.12f);
@@ -52,6 +52,7 @@ public class Spawner : MonoBehaviour
                     border.position.y + (border.localScale.y - studentT.localScale.y / 2))
                 );
             newStudent.transform.parent = transform;
+            newStudent.GetComponent<Student>().myYearGroup = (Student.YearGroup)Random.Range(0, 3);
         }
     }
 

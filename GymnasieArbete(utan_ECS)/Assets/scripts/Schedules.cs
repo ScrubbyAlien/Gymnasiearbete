@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Schedules
+public struct Schedules
 {
-    public record Group()
+    public class Group
     {
-        public string name;
+        public Student.YearGroup yearGroup;
         public int size;
     }
 
-    public record Period()
+    public class Period
     {
         public int period;
         public Group[] atSchool;
         public Group[] atHome;
     }
 
-    public record Schedule()
+    public class Schedule
     {
         public int ScheduleID;
         public Period[] periods;
@@ -25,17 +25,17 @@ public static class Schedules
 
     static Group yearOne = new Group()
     {
-        name = "yearOne",
+        yearGroup = Student.YearGroup.YearOne,
         size = 190
     };
     static Group yearTwo = new Group()
     {
-        name = "yearTwo",
+        yearGroup = Student.YearGroup.YearTwo,
         size = 140
     };
     static Group yearThree = new Group()
     {
-        name = "yearThree",
+        yearGroup = Student.YearGroup.YearThree,
         size = 130
     };
 
