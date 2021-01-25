@@ -5,6 +5,7 @@ using System;
 
 public class ScheduleHandler : MonoBehaviour
 {
+    //public delegate void delegate(OnPeriodChangedEventArgs args) hidden by Action keyword;
     public event Action<OnPeriodChangedEventArgs> onPeriodChange;
 
     Schedules.Schedule curSched = Schedules.schedules[0];
@@ -16,6 +17,7 @@ public class ScheduleHandler : MonoBehaviour
 
     void Start()
     {
+        //initialize schedule references
         periodIndex = 0;
         curPer = curSched.periods[periodIndex];
         atHome = curPer.atHome;
@@ -28,6 +30,7 @@ public class ScheduleHandler : MonoBehaviour
     {
         if (Time.time > startTime + curPer.period)
         {
+            //update curSched, curPer, atHome and atSchool values based on new period
             periodIndex = (periodIndex + 1) % curSched.periods.Length;
             curPer = curSched.periods[periodIndex];
             curPer = curSched.periods[periodIndex];
@@ -43,6 +46,7 @@ public class ScheduleHandler : MonoBehaviour
     {
         if (onPeriodChange != null)
         {
+            //converts the atHome and atSchool Group arrays into yearGroup lists
             List<Student.YearGroup> atHomeList = new List<Student.YearGroup> { };
             foreach (Schedules.Group s in atHome)
             {
@@ -54,6 +58,7 @@ public class ScheduleHandler : MonoBehaviour
                 atSchoolList.Add(s.yearGroup);
             }
 
+            //creates eventargs
             onPeriodChange(new OnPeriodChangedEventArgs
             {
                 yearGroupsHome = atHomeList,

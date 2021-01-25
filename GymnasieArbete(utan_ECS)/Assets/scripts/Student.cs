@@ -19,6 +19,7 @@ public class Student : MonoBehaviour
 
     void Start()
     {
+        //subscribes methods to onPeriodChange event and finds reference to border from hierarchy
         border = GameObject.FindGameObjectWithTag("Border").transform;
         FindObjectOfType<ScheduleHandler>().onPeriodChange += GoHome;
         FindObjectOfType<ScheduleHandler>().onPeriodChange += GoToSchool;
@@ -26,11 +27,14 @@ public class Student : MonoBehaviour
 
     void Update()
     {
+        //displays if the student is infected and not removed for hover info later.
         infected = gameObject.HasComponent<Infected>() && !gameObject.HasComponent<Removed>();
     }
 
     public void GoHome(ScheduleHandler.OnPeriodChangedEventArgs args)
     {
+        //checks if this year group should go home and if so moves it far away from the building
+        //and disables present infection and movement components.
         if (args.yearGroupsHome.Contains(myYearGroup))
         {
             transform.position = new Vector3(Random.Range(40, 80), Random.Range(40, 80), 0);
@@ -44,6 +48,8 @@ public class Student : MonoBehaviour
 
     public void GoToSchool(ScheduleHandler.OnPeriodChangedEventArgs args)
     {
+        //checks if this year group should go to school and if so moves is back inside the border
+        //of the building and reenables disabled components. 
         if (args.yearGroupsToSchool.Contains(myYearGroup))
         {
             transform.position = new Vector3

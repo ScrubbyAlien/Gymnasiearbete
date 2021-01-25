@@ -39,6 +39,7 @@ public struct Schedules
         size = 130
     };
 
+    //one year group one week at a time, other two home
     static Schedule schedulel1 = new Schedule()
     {
         periods = new Period[]
@@ -64,6 +65,7 @@ public struct Schedules
         }
     };
 
+    //two year groups one week at a time, other one home, cycle year groups
     static Schedule schedulel2 = new Schedule()
     {
         periods = new Period[]
@@ -82,7 +84,7 @@ public struct Schedules
             },
             new Period()
             {
-                period = 14,
+                period = 7,
                 atSchool = new Group[]{yearThree, yearOne},
                 atHome = new Group[]{yearTwo}
             }
