@@ -15,7 +15,9 @@ public class ScheduleHandler : MonoBehaviour
     float startTime;
     int periodIndex;
 
-    void Start()
+    bool simStarted = false;
+
+    private IEnumerator StartSimIE()
     {
         //initialize schedule references
         periodIndex = 0;
@@ -23,22 +25,27 @@ public class ScheduleHandler : MonoBehaviour
         atHome = curPer.atHome;
         atSchool = curPer.atSchool;
         startTime = Time.time;
+        simStarted = true;
         SendEventOnPeriodChange();
+        yield return null;
     }
 
     void Update()
     {
-        if (Time.time > startTime + curPer.period)
+        if (simStarted)
         {
-            //update curSched, curPer, atHome and atSchool values based on new period
-            periodIndex = (periodIndex + 1) % curSched.periods.Length;
-            curPer = curSched.periods[periodIndex];
-            curPer = curSched.periods[periodIndex];
-            atHome = curPer.atHome;
-            atSchool = curPer.atSchool;
-            startTime = Time.time;
-            //send event to change period
-            SendEventOnPeriodChange();
+            if (Time.time > startTime + curPer.period)
+            {
+                //update curSched, curPer, atHome and atSchool values based on new period
+                periodIndex = (periodIndex + 1) % curSched.periods.Length;
+                curPer = curSched.periods[periodIndex];
+                curPer = curSched.periods[periodIndex];
+                atHome = curPer.atHome;
+                atSchool = curPer.atSchool;
+                startTime = Time.time;
+                //send event to change period
+                SendEventOnPeriodChange();
+            }
         }
     }
 
@@ -65,6 +72,16 @@ public class ScheduleHandler : MonoBehaviour
                 yearGroupsToSchool = atSchoolList
             });
         }
+    }
+
+    public void StartSim()
+    {
+        Invoke("StartSimIE", 0.3f);
+    }
+
+    public void StopSim()
+    {
+        simStarted = false;
     }
 
     public class OnPeriodChangedEventArgs : EventArgs

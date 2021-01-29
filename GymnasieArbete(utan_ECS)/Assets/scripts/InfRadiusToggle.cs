@@ -18,13 +18,11 @@ public class InfRadiusToggle : MonoBehaviour
     {
         p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
         radiusActive = false;
-        sf = ScalingFactor(0.12f);
     }
 
     void Update()
     {
-        float radius = ((p.infectionRadius * border.localScale.x * 2) / p.lengthOfSide) * 2
-                        / sf;
+        float radius = ((p.infectionRadius * border.localScale.x * 2) * 2 / p.lengthOfSide);
 
         if (p.showInfectionRadius && !radiusActive)
         {
@@ -47,9 +45,9 @@ public class InfRadiusToggle : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("infRadius"));
             radiusActive = false;
         }
-        if (radiusActive)
+        if (GameObject.FindGameObjectWithTag("infRadius") == null)
         {
-
+            radiusActive = false;
         }
 
     }
@@ -57,10 +55,5 @@ public class InfRadiusToggle : MonoBehaviour
     public void ResetRadiusCircle()
     {
         radiusActive = false;
-    }
-
-    float ScalingFactor(float area)
-    {
-        return Mathf.Sqrt(area * 4 / Mathf.PI);
     }
 }

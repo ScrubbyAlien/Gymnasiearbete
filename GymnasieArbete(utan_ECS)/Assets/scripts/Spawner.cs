@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
         {
             //instantiates new student from prefab and assigns transform, year group and parent
             newStudent = Instantiate<GameObject>(studentPrefab);
-            float f = ScalingFactor(0.12f);
+            float f = ScalingFactor(0.18f);
             float s = border.localScale.x * 2 * f / p.lengthOfSide;
             newStudent.transform.localScale = new Vector3(s, s, 1);
             newStudent.transform.position = new Vector2

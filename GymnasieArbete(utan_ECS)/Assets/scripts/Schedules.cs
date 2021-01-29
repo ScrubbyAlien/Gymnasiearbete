@@ -19,7 +19,7 @@ public struct Schedules
 
     public class Schedule
     {
-        public int ScheduleID;
+        public int scheduleID;
         public Period[] periods;
     }
 
@@ -39,9 +39,25 @@ public struct Schedules
         size = 130
     };
 
+    //no schedule
+    static Schedule noSchedule = new Schedule()
+    {
+        scheduleID = 0,
+        periods = new Period[]
+        {
+            new Period()
+            {
+                period = 31,
+                atSchool = new Group[]{yearOne, yearTwo, yearThree},
+                atHome = new Group[]{}
+            }
+        }
+    };
+
     //one year group one week at a time, other two home
     static Schedule schedulel1 = new Schedule()
     {
+        scheduleID = 1,
         periods = new Period[]
         {
             new Period()
@@ -68,6 +84,7 @@ public struct Schedules
     //two year groups one week at a time, other one home, cycle year groups
     static Schedule schedulel2 = new Schedule()
     {
+        scheduleID = 2,
         periods = new Period[]
         {
             new Period()
@@ -91,7 +108,28 @@ public struct Schedules
         }
     };
 
-    public static Schedule[] schedules = new Schedule[] { schedulel1, schedulel2 };
+    // year one every week, two and three alternate
+    static Schedule schedule3 = new Schedule()
+    {
+        scheduleID = 3,
+        periods = new Period[]
+        {
+            new Period()
+            {
+                period = 7,
+                atSchool = new Group[]{yearOne, yearTwo},
+                atHome = new Group[]{yearThree}
+            },
+            new Period()
+            {
+                period = 7,
+                atSchool = new Group[]{yearOne, yearThree},
+                atHome = new Group[]{yearTwo}
+            }
+        }
+    };
+
+    public static Schedule[] schedules = new Schedule[] { noSchedule, schedulel1, schedulel2, schedule3 };
 
 }
 

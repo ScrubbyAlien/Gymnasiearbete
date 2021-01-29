@@ -67,7 +67,5 @@ public class Infected : MonoBehaviour
                 gameObject.AddComponent<Removed>();
             }
         }
-
-
     }
 }
