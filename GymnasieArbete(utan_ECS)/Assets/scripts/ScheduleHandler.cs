@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 
@@ -15,9 +16,23 @@ public class ScheduleHandler : MonoBehaviour
     float startTime;
     int periodIndex;
 
-    bool simStarted = false;
+    bool simStarted;
 
-    private IEnumerator StartSimIE()
+    public Dropdown scheduleSelector;
+
+    InfectionParameters p;
+
+    void Start()
+    {
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
+        simStarted = false;
+        scheduleSelector.onValueChanged.AddListener(delegate
+        {
+            NewScheduleSelected(scheduleSelector);
+        });
+    }
+
+    void StartSimFun()
     {
         //initialize schedule references
         periodIndex = 0;
@@ -27,18 +42,16 @@ public class ScheduleHandler : MonoBehaviour
         startTime = Time.time;
         simStarted = true;
         SendEventOnPeriodChange();
-        yield return null;
     }
 
     void Update()
     {
         if (simStarted)
         {
-            if (Time.time > startTime + curPer.period)
+            if (Time.time > startTime + curPer.period * p.dayLength)
             {
                 //update curSched, curPer, atHome and atSchool values based on new period
                 periodIndex = (periodIndex + 1) % curSched.periods.Length;
-                curPer = curSched.periods[periodIndex];
                 curPer = curSched.periods[periodIndex];
                 atHome = curPer.atHome;
                 atSchool = curPer.atSchool;
@@ -65,7 +78,7 @@ public class ScheduleHandler : MonoBehaviour
                 atSchoolList.Add(s.yearGroup);
             }
 
-            //creates eventargs
+            //calls event and creates eventargs
             onPeriodChange(new OnPeriodChangedEventArgs
             {
                 yearGroupsHome = atHomeList,
@@ -76,12 +89,19 @@ public class ScheduleHandler : MonoBehaviour
 
     public void StartSim()
     {
-        Invoke("StartSimIE", 0.3f);
+        Invoke("StartSimFun", 0.1f);
+        scheduleSelector.interactable = false;
     }
 
     public void StopSim()
     {
         simStarted = false;
+        scheduleSelector.interactable = true;
+    }
+
+    public void NewScheduleSelected(Dropdown d)
+    {
+        curSched = Schedules.schedules[d.value];
     }
 
     public class OnPeriodChangedEventArgs : EventArgs

@@ -55,12 +55,16 @@ public class Student : MonoBehaviour
             transform.position = new Vector3
                 (
                     //Finds a random position inside the box
-                    Random.Range(
-                    border.position.x - (border.localScale.x - transform.localScale.x / 2),
-                    border.position.x + (border.localScale.x - transform.localScale.x / 2)),
-                    Random.Range(
-                    border.position.y - (border.localScale.y - transform.localScale.y / 2),
-                    border.position.y + (border.localScale.y - transform.localScale.y / 2))
+                    Random.Range
+                    (
+                        border.position.x - (border.localScale.x - transform.localScale.x / 2),
+                        border.position.x + (border.localScale.x - transform.localScale.x / 2)
+                    ),
+                    Random.Range
+                    (
+                        border.position.y - (border.localScale.y - transform.localScale.y / 2),
+                        border.position.y + (border.localScale.y - transform.localScale.y / 2)
+                    )
                 );
             gameObject.GetComponent<StudentMovement>().enabled = true;
             if (gameObject.HasComponent<Infected>())
@@ -68,5 +72,18 @@ public class Student : MonoBehaviour
                 gameObject.GetComponent<Infected>().enabled = true;
             }
         }
+    }
+
+    void OnDisable()
+    {
+        FindObjectOfType<ScheduleHandler>().onPeriodChange -= GoHome;
+        FindObjectOfType<ScheduleHandler>().onPeriodChange -= GoToSchool;
+    }
+
+    private void OnApplicationQuit()
+    {
+        MonoBehaviour[] scripts = FindObjectsOfType<MonoBehaviour>();
+        foreach (MonoBehaviour script in scripts)
+            script.enabled = false;
     }
 }

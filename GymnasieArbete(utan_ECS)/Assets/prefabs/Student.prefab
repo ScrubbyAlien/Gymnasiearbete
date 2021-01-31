@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -8161209478004611113}
   - component: {fileID: 8198481391653987539}
   - component: {fileID: 8198481391653987551}
+  - component: {fileID: -4309330582417566604}
   m_Layer: 8
   m_Name: Student
   m_TagString: Student
@@ -113,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4547dd7eba68264fab9e498c56dcb4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infected: 0
   myYearGroup: 0
 --- !u!50 &8198481391653987539
 Rigidbody2D:
@@ -151,3 +153,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-4309330582417566604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198481391653987540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1940dee79d45b124eb658c82fd5dacd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  timeBetweenChecks: 0.1

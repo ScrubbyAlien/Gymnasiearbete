@@ -12,7 +12,7 @@ public struct Schedules
 
     public class Period
     {
-        public int period;
+        public float period;
         public Group[] atSchool;
         public Group[] atHome;
     }
@@ -47,7 +47,7 @@ public struct Schedules
         {
             new Period()
             {
-                period = 31,
+                period = Mathf.Infinity,
                 atSchool = new Group[]{yearOne, yearTwo, yearThree},
                 atHome = new Group[]{}
             }
