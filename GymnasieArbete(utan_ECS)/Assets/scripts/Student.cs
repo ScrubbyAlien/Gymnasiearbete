@@ -17,8 +17,11 @@ public class Student : MonoBehaviour
     }
     public YearGroup myYearGroup;
 
+    InfectionParameters p;
+
     void Start()
     {
+        p = GameObject.FindObjectOfType<InfectionParameters>().GetComponent<InfectionParameters>();
         //subscribes methods to onPeriodChange event and finds reference to border from hierarchy
         border = GameObject.FindGameObjectWithTag("Border").transform;
         FindObjectOfType<ScheduleHandler>().onPeriodChange += GoHome;
@@ -43,6 +46,40 @@ public class Student : MonoBehaviour
             {
                 gameObject.GetComponent<Infected>().enabled = false;
             }
+        }
+    }
+
+    public void GoGomeAttendance()
+    {
+        transform.position = new Vector3(Random.Range(40, 80), Random.Range(40, 80), 0);
+        gameObject.GetComponent<StudentMovement>().enabled = false;
+        if (gameObject.HasComponent<Infected>())
+        {
+            gameObject.GetComponent<Infected>().enabled = false;
+        }
+        Invoke("GoToSchoolAttendance", 7 * p.dayLength);
+    }
+
+    void GoToSchoolAttendance()
+    {
+        transform.position = new Vector3
+                (
+                    //Finds a random position inside the box
+                    Random.Range
+                    (
+                        border.position.x - (border.localScale.x - transform.localScale.x / 2),
+                        border.position.x + (border.localScale.x - transform.localScale.x / 2)
+                    ),
+                    Random.Range
+                    (
+                        border.position.y - (border.localScale.y - transform.localScale.y / 2),
+                        border.position.y + (border.localScale.y - transform.localScale.y / 2)
+                    )
+                );
+        gameObject.GetComponent<StudentMovement>().enabled = true;
+        if (gameObject.HasComponent<Infected>())
+        {
+            gameObject.GetComponent<Infected>().enabled = true;
         }
     }
 
