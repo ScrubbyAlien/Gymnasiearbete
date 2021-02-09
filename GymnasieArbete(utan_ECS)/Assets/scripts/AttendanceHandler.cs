@@ -27,7 +27,6 @@ public class AttendanceHandler : MonoBehaviour
 
     void SendHomeSickStudents()
     {
-        Debug.Log("send home");
         GameObject[] students = GameObject.FindGameObjectsWithTag("Student");
         int length = Mathf.FloorToInt(students.Length * (1 - p.attendence));
         for (int i = 0; i < length; i++)
