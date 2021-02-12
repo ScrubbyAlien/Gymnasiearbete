@@ -42,10 +42,6 @@ public class Student : MonoBehaviour
         {
             transform.position = new Vector3(Random.Range(40, 80), Random.Range(40, 80), 0);
             gameObject.GetComponent<StudentMovement>().enabled = false;
-            if (gameObject.HasComponent<Infected>())
-            {
-                gameObject.GetComponent<Infected>().enabled = false;
-            }
         }
     }
 
@@ -53,10 +49,6 @@ public class Student : MonoBehaviour
     {
         transform.position = new Vector3(Random.Range(40, 80), Random.Range(40, 80), 0);
         gameObject.GetComponent<StudentMovement>().enabled = false;
-        if (gameObject.HasComponent<Infected>())
-        {
-            gameObject.GetComponent<Infected>().enabled = false;
-        }
         Invoke("GoToSchoolAttendance", 7 * p.dayLength);
     }
 
@@ -77,10 +69,6 @@ public class Student : MonoBehaviour
                     )
                 );
         gameObject.GetComponent<StudentMovement>().enabled = true;
-        if (gameObject.HasComponent<Infected>())
-        {
-            gameObject.GetComponent<Infected>().enabled = true;
-        }
     }
 
     public void GoToSchool(ScheduleHandler.OnPeriodChangedEventArgs args)
@@ -104,10 +92,6 @@ public class Student : MonoBehaviour
                     )
                 );
             gameObject.GetComponent<StudentMovement>().enabled = true;
-            if (gameObject.HasComponent<Infected>())
-            {
-                gameObject.GetComponent<Infected>().enabled = true;
-            }
         }
     }
 
